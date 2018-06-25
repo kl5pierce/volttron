@@ -57,45 +57,52 @@ import os
 from fabric.api import *
 
 import test_settings
-import config_builder   
+import config_builder
+from shutil import copy
 
 env.hosts = [test_settings.virtual_device_host]
 env.user='volttron'
 
 command_lines = None
-reg_config_files = None
 
+@task
 def build_configs():
-    global command_lines, reg_config_files
+    global command_lines
     command_lines = []
     config_paths = []
-    reg_config_files = []
     config_full_path = os.path.abspath(test_settings.config_dir)
+
+    registry_config_dir = os.path.join(config_full_path, "registry_configs")
+
+    try:
+        os.makedirs(registry_config_dir)
+    except os.error:
+        pass
+
     for device_type, settings in test_settings.device_types.items():
         count, reg_config = settings
+        copy(reg_config, registry_config_dir)
+
+        reg_config_ref = "config://registry_configs/" + os.path.basename(reg_config)
         
-        reg_path = os.path.abspath(reg_config)
-        reg_config_files.append(reg_path)
-        
-        configs, commands = config_builder.build_device_configs(device_type, 
-                                                                env.host,
-                                                                count,
-                                                                reg_path,
-                                                                config_full_path,
-                                                                60,
-                                                                True)
+        commands = config_builder.build_device_configs(device_type,
+                                                        env.host,
+                                                        count,
+                                                        reg_config_ref,
+                                                        config_full_path,
+                                                        60,
+                                                        config_full_path)
         
         
-        config_paths.extend(configs)
         command_lines.extend(commands)
         
     #config_builder.build_master_config(test_settings.master_driver_file, config_dir, config_paths)
-    config_builder.build_master_config(test_settings.master_driver_file,
-                                       config_full_path,
-                                       config_paths,
+
+    config_builder.build_master_config(config_full_path,
                                        True,
                                        5,
-                                       None)
+                                       0.0,
+                                       True)
 
 def get_command_lines():
     global command_lines
@@ -103,13 +110,7 @@ def get_command_lines():
         build_configs()
         
     return command_lines
-        
-def get_reg_configs():
-    global reg_config_files
-    if reg_config_files is None:
-        build_configs()
-        
-    return reg_config_files
+
 
 def get_remote_path(path):
     # command to find the path to the remote volttron.

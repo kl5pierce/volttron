@@ -74,6 +74,8 @@ def build_configs():
 
     registry_config_dir = os.path.join(config_full_path, "registry_configs")
 
+    devices_dir = os.path.join(config_full_path, 'devices')
+
     try:
         os.makedirs(registry_config_dir)
     except os.error:
@@ -91,12 +93,14 @@ def build_configs():
                                                         reg_config_ref,
                                                         config_full_path,
                                                         60,
-                                                        config_full_path)
+                                                        devices_dir)
         
         
         command_lines.extend(commands)
         
     #config_builder.build_master_config(test_settings.master_driver_file, config_dir, config_paths)
+
+    print command_lines
 
     config_builder.build_master_config(config_full_path,
                                        True,

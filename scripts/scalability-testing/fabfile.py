@@ -61,7 +61,7 @@ import config_builder
 from shutil import copy
 
 env.hosts = [test_settings.virtual_device_host]
-env.user='volttron'
+env.user='osboxes'
 
 command_lines = None
 
@@ -75,9 +75,10 @@ def build_configs():
     registry_config_dir = os.path.join(config_full_path, "registry_configs")
 
     devices_dir = os.path.join(config_full_path, 'devices')
-
+    local("rm -rf {}" .format(config_full_path))
     try:
         os.makedirs(registry_config_dir)
+        os.makedirs(devices_dir)
     except os.error:
         pass
 
@@ -123,7 +124,7 @@ def get_remote_path(path):
     return run(path_template.format(path))
 
 @task
-def deploy_virtual_devices():
+def deploy_device_configs():
  
     
     volttron_path = 'python -c "import os; print(os.path.expanduser(\'' \
@@ -159,25 +160,25 @@ def deploy_virtual_devices():
     put(local_device_configs+'/*', remote_device_configs)
     
     # Assume working from root volttron folder
-    for cmd in get_command_lines():
-        print(cmd)
-        # Translate commands into the remote context for execution of the scripts.
-        parts = cmd.split(' ')
-        script_name, reg_filename, address = parts[0], parts[1], parts[2]
-        port = ''
-        if len(parts) > 3:
-            port = parts[3]
-        reg_filename = os.path.join(remote_device_configs, reg_filename)
-        script_name = os.path.join(virtual_driver_dir, script_name)
-        run_script = ' '.join([python_exe, 
-                                script_name, 
-                                reg_filename,
-                                address, 
-                                port])
-        
-        # Execute the virtual devices.
-        result = run(run_script)
-        print('result: {}'.format(result))
+    # for cmd in get_command_lines():
+    #     print(cmd)
+    #     # Translate commands into the remote context for execution of the scripts.
+    #     parts = cmd.split(' ')
+    #     script_name, reg_filename, address = parts[0], parts[1], parts[2]
+    #     port = ''
+    #     if len(parts) > 3:
+    #         port = parts[3]
+    #     reg_filename = os.path.join(remote_device_configs, reg_filename)
+    #     script_name = os.path.join(virtual_driver_dir, script_name)
+    #     run_script = ' '.join([python_exe,
+    #                             script_name,
+    #                             reg_filename,
+    #                             address,
+    #                             port])
+    #
+    #     # Execute the virtual devices.
+    #     result = run(run_script)
+    #     print('result: {}'.format(result))
 
 @task
 def stop_virtual_devices():

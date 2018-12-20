@@ -1,0 +1,1769 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.8.1, py-1.6.0, pluggy-0.7.1 -- /home/kirsten/volttron/env/bin/python
+cachedir: .pytest_cache
+rootdir: /home/kirsten/volttron, inifile: pytest.ini
+collecting ... collected 66 items / 46 deselected
+
+test_rmq_pubsub.py::test_granularity[volttron_instance0] PASSED          [  5%]
+test_rmq_pubsub.py::test_incorrect_topic[volttron_instance0] PASSED      [ 10%]
+test_rmq_pubsub.py::test_unsubscribe[volttron_instance0] PASSED          [ 15%]
+test_rmq_pubsub.py::test_irrelevant_unsubscribe[volttron_instance0] PASSED [ 20%]
+test_rmq_pubsub.py::test_regex[volttron_instance0] FAILED                [ 25%]
+test_rmq_pubsub.py::test_regex_incorrect_word_count[volttron_instance0] FAILED [ 30%]
+test_rmq_pubsub.py::test_callback[volttron_instance0] FAILED             [ 35%]
+test_rmq_pubsub.py::test_list[volttron_instance0] FAILED                 [ 40%]
+test_rmq_pubsub.py::test_list_reverse[volttron_instance0] FAILED         [ 45%]
+test_rmq_pubsub.py::test_persistence[volttron_instance0] FAILED          [ 50%]
+test_rmq_pubsub.py::test_granularity[volttron_instance1] ERROR           [ 55%]
+test_rmq_pubsub.py::test_incorrect_topic[volttron_instance1] ERROR       [ 60%]
+test_rmq_pubsub.py::test_unsubscribe[volttron_instance1] ERROR           [ 65%]
+test_rmq_pubsub.py::test_irrelevant_unsubscribe[volttron_instance1] ERROR [ 70%]
+test_rmq_pubsub.py::test_regex[volttron_instance1] ERROR                 [ 75%]
+test_rmq_pubsub.py::test_regex_incorrect_word_count[volttron_instance1] ERROR [ 80%]
+test_rmq_pubsub.py::test_callback[volttron_instance1] ERROR              [ 85%]
+test_rmq_pubsub.py::test_list[volttron_instance1] ERROR                  [ 90%]
+test_rmq_pubsub.py::test_list_reverse[volttron_instance1] ERROR          [ 95%]
+test_rmq_pubsub.py::test_persistence[volttron_instance1] ERROR           [100%]
+
+==================================== ERRORS ====================================
+____________ ERROR at setup of test_granularity[volttron_instance1] ____________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+---------------------------- Captured stdout setup -----------------------------
+Shutting down instance: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', '74b1df3f-e4f1-4a80-bfff-66eca1113f94']
+PEER LIST: ['control', 'master.web', '74b1df3f-e4f1-4a80-bfff-66eca1113f94', 'listener', '58c31778-13f8-4ff8-a895-5a6f3a5bf60c', 'agent2', 'agent1', 'config.store', 'keydiscovery', 'platform.auth', 'pubsub']
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'f0925127-5f19-4f2c-9e69-230dd8bb19f0']
+PEER LIST: ['control', 'master.web', 'f0925127-5f19-4f2c-9e69-230dd8bb19f0', '58c31778-13f8-4ff8-a895-5a6f3a5bf60c', 'agent2', 'agent1', 'config.store', 'keydiscovery', 'platform.auth', 'pubsub']
+/tmp/tmpS5RsiY: Removing /tmp/tmpS5RsiY
+building instance
+/tmp/tmpSB3S8Q: Creating platform wrapper
+BUILD_WRAPPER: tcp://127.0.0.79:5722
+/tmp/tmpSB3S8Q: Setting up volttron test environemnt /tmp/tmpSB3S8Q
+Create new exchange: volttron, {'durable': True, 'type': 'topic', 'arguments': {'alternate-exchange': 'undeliverable'}}
+Create new exchange: undeliverable, {'durable': True, 'type': 'fanout'}
+Created CA cert
+---------------------------- Captured stderr setup -----------------------------
+2018-10-23 10:28:23,564 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentqoNE_O.keys
+2018-10-23 10:28:23,564 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentqoNE_O.keys
+2018-10-23 10:28:23,568 root DEBUG: Creating ZMQ Core None
+2018-10-23 10:28:23,568 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:23,568 volttron.platform.vip.agent.core DEBUG: identity: None
+2018-10-23 10:28:23,569 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:23,569 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:23,569 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+2018-10-23 10:28:23,581 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+2018-10-23 10:28:23,638 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+2018-10-23 10:28:23,638 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:23,646 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:24,141 volttron.platform.vip.agent.subsystems.hello INFO: 74b1df3f-e4f1-4a80-bfff-66eca1113f94 Requesting hello from peer ()
+2018-10-23 10:28:24,143 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', '74b1df3f-e4f1-4a80-bfff-66eca1113f94'], 'user': '5a563fdf-326d-434f-b77d-e6f4014209d3', 'id': '13893172119262069332.8784571405429'})
+2018-10-23 10:28:24,238 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentPACogN.keys
+2018-10-23 10:28:24,239 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentPACogN.keys
+2018-10-23 10:28:24,247 root DEBUG: Creating ZMQ Core None
+2018-10-23 10:28:24,250 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:24,252 volttron.platform.vip.agent.core DEBUG: identity: None
+2018-10-23 10:28:24,253 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:24,254 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:24,255 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core f0925127-5f19-4f2c-9e69-230dd8bb19f0
+2018-10-23 10:28:24,271 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection f0925127-5f19-4f2c-9e69-230dd8bb19f0
+2018-10-23 10:28:24,319 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: f0925127-5f19-4f2c-9e69-230dd8bb19f0
+2018-10-23 10:28:24,320 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:24,327 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:24,831 volttron.platform.vip.agent.subsystems.hello INFO: f0925127-5f19-4f2c-9e69-230dd8bb19f0 Requesting hello from peer ()
+2018-10-23 10:28:24,832 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'f0925127-5f19-4f2c-9e69-230dd8bb19f0'], 'user': '9551edc6-9911-4dc7-b000-791e59de905f', 'id': '9392995724615506347.8784571466417'})
+2018-10-23 10:28:25,811 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpSB3S8Q/keystore
+2018-10-23 10:28:25,811 volttron.platform.agent.utils INFO: creating file /tmp/tmpSB3S8Q/keystore
+Warning: PID file not written; -detached was passed.
+2018-10-23 10:28:30,409 volttron.platform.vip.agent.core ERROR: No response to hello message after 10 seconds.
+2018-10-23 10:28:30,409 volttron.platform.vip.agent.core ERROR: A common reason for this is a conflicting VIP IDENTITY.
+2018-10-23 10:28:30,410 volttron.platform.vip.agent.core ERROR: Another common reason is not having an auth entry onthe target instance.
+2018-10-23 10:28:30,410 volttron.platform.vip.agent.core ERROR: Shutting down agent.
+2018-10-23 10:28:30,410 volttron.platform.vip.agent.core ERROR: Possible conflicting identity is: agent2
+2018-10-23 10:29:20,747 volttron.utils.rmq_mgmt DEBUG: Creating new VIRTUAL HOST: volttron_test
+2018-10-23 10:29:20,770 volttron.utils.rmq_mgmt DEBUG: Create READ, WRITE and CONFIGURE permissions for the user: volttron_test-admin
+Warning: PID file not written; -detached was passed.
+------------------------------ Captured log setup ------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentqoNE_O.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentqoNE_O.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+zmq_connection.py           77 DEBUG    ZMQ connection 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: 74b1df3f-e4f1-4a80-bfff-66eca1113f94
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     74b1df3f-e4f1-4a80-bfff-66eca1113f94 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', '74b1df3f-e4f1-4a80-bfff-66eca1113f94'], 'user': '5a563fdf-326d-434f-b77d-e6f4014209d3', 'id': '13893172119262069332.8784571405429'})
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentPACogN.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentPACogN.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core f0925127-5f19-4f2c-9e69-230dd8bb19f0
+zmq_connection.py           77 DEBUG    ZMQ connection f0925127-5f19-4f2c-9e69-230dd8bb19f0
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: f0925127-5f19-4f2c-9e69-230dd8bb19f0
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     f0925127-5f19-4f2c-9e69-230dd8bb19f0 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'f0925127-5f19-4f2c-9e69-230dd8bb19f0'], 'user': '9551edc6-9911-4dc7-b000-791e59de905f', 'id': '9392995724615506347.8784571466417'})
+utils.py                   650 DEBUG    missing file /tmp/tmpSB3S8Q/keystore
+utils.py                   651 INFO     creating file /tmp/tmpSB3S8Q/keystore
+core.py                    494 ERROR    No response to hello message after 10 seconds.
+core.py                    495 ERROR    A common reason for this is a conflicting VIP IDENTITY.
+core.py                    496 ERROR    Another common reason is not having an auth entry onthe target instance.
+core.py                    498 ERROR    Shutting down agent.
+core.py                    500 ERROR    Possible conflicting identity is: agent2
+rmq_mgmt.py                175 DEBUG    Creating new VIRTUAL HOST: volttron_test
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test-admin
+__________ ERROR at setup of test_incorrect_topic[volttron_instance1] __________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+____________ ERROR at setup of test_unsubscribe[volttron_instance1] ____________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+______ ERROR at setup of test_irrelevant_unsubscribe[volttron_instance1] _______
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+_______________ ERROR at setup of test_regex[volttron_instance1] _______________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+____ ERROR at setup of test_regex_incorrect_word_count[volttron_instance1] _____
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+_____________ ERROR at setup of test_callback[volttron_instance1] ______________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+_______________ ERROR at setup of test_list[volttron_instance1] ________________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+___________ ERROR at setup of test_list_reverse[volttron_instance1] ____________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+____________ ERROR at setup of test_persistence[volttron_instance1] ____________
+
+request = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.fixture(scope="module",
+                    params=[('zmq', False), ('rmq', True)])
+    def volttron_instance(request):
+        """Fixture that returns a single instance of volttron platform for testing
+    
+        @param request: pytest request object
+        @return: volttron platform instance
+        """
+        print("building instance")
+        wrapper = None
+        address = get_rand_vip()
+        wrapper = build_wrapper(address,
+                                message_bus=request.param[0],
+>                               ssl_auth=request.param[1])
+
+address    = 'tcp://127.0.0.79:5722'
+request    = <SubRequest 'volttron_instance' for <Function 'test_granularity[volttron_instance1]'>>
+wrapper    = None
+
+../fixtures/volttron_platform_fixtures.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../fixtures/volttron_platform_fixtures.py:55: in build_wrapper
+    wrapper.startup_platform(vip_address=vip_address, **kwargs)
+../utils/platformwrapper.py:432: in startup_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:59: in create_rmq_volttron_setup
+    prompt=False)
+../../volttron/utils/rmq_setup.py:544: in setup_rabbitmq_volttron
+    _setup_for_ssl_auth(rmq_config)
+../../volttron/utils/rmq_setup.py:341: in _setup_for_ssl_auth
+    start_rabbit(rmq_config.rmq_home)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rmq_home = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+
+    def start_rabbit(rmq_home):
+        """
+        Start RabbitMQ server
+        :param rmq_home: RabbitMQ installation path
+        :return:
+        """
+    
+        status_cmd = [os.path.join(rmq_home, "sbin/rabbitmqctl"), "status"]
+        start_cmd = [os.path.join(rmq_home, "sbin/rabbitmq-server"), "-detached"]
+        i = 5
+        started = False
+        start = True
+        while not started:
+            try:
+                subprocess.check_call(status_cmd, stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if not start:
+                    # if we have attempted started already
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                started = True
+                _log.info("Rmq server at {} is running".format(rmq_home))
+            except subprocess.CalledProcessError as e:
+                if start:
+                    # attempt to start once
+                    subprocess.check_call(start_cmd)
+                    gevent.sleep(25)  # give a few seconds for all plugins to start
+                    start = False
+                else:
+                    if i > 60:  # if more than a minute, may be something is wrong
+>                       raise e
+E                       CalledProcessError: Command '['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']' returned non-zero exit status 69
+
+e          = CalledProcessError()
+i          = 65
+rmq_home   = '/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7'
+start      = False
+start_cmd  = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmq-server', '-detached']
+started    = False
+status_cmd = ['/home/kirsten/rabbitmq_server/rabbitmq_server-3.7.7/sbin/rabbitmqctl', 'status']
+
+../../volttron/utils/rmq_setup.py:953: CalledProcessError
+=================================== FAILURES ===================================
+________________________ test_regex[volttron_instance0] ________________________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_regex[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_regex(volttron_instance, request):
+        global message_count1, message_count2, message_count3, message_count4, message_count5
+        message_count1 = 0
+        message_count2 = 0
+        message_count3 = 0
+        message_count4 = 0
+        message_count5 = 0
+    
+        ### Test fails. Cause currently unknown ####
+    
+        test_topic1 = "test.topic.one.test1"
+    
+        # Tests to confirm messages get discarded due to lack of match
+        test_topic2 = "testtopic1.foo.bar.three"
+    
+        # Tests whether * does exactly one word match multiple places
+        test_topic3 = "test.one.topic"
+    
+        # Tests whether # can do multiple word matches
+        test_topic4 = "testtopic2.one.two.test"
+    
+        # Tests whether * does exactly one word match that using both * and # delimiters works
+        test_topic5 = "testtopic3.test.foo."
+    
+        prefix_astrix_ends = "*.one.*"
+        prefix_astrix_middle = "testtopic1.*.test"
+        prefix_hashtag_ends = "#.one.#"
+        prefix_hashtag_middle = "testtopic2.#.test"
+        prefix_both_delimiters_ends = "*.test.foo.#"
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(prefix_astrix_ends):
+                message_count1 += 1
+    
+        def onmessage2(peer, sender, bus, topic, headers, message):
+            global message_count2
+            if topic.startswith(prefix_astrix_middle):
+                message_count2 += 1
+    
+        def onmessage3(peer, sender, bus, topic, headers, message):
+            global message_count3
+            if topic.startswith(prefix_hashtag_ends):
+                message_count3 += 1
+    
+        def onmessage4(peer, sender, bus, topic, headers, message):
+            global message_count4
+            if topic.startswith(prefix_hashtag_middle):
+                message_count4 += 1
+    
+        def onmessage5(peer, sender, bus, topic, headers, message):
+            global message_count5
+            if topic.startswith(prefix_both_delimiters_ends):
+                message_count5 += 1
+    
+        new_agent1 = volttron_instance.build_agent(identity='agent1')
+        new_agent2 = volttron_instance.build_agent(identity='agent2')
+    
+        def stop():
+            new_agent1.core.stop()
+            new_agent2.core.stop()
+    
+        request.addfinalizer(stop)
+    
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic1, callback=onmessage1)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic2, callback=onmessage2)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic3, callback=onmessage3)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic4, callback=onmessage4)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic5, callback=onmessage5)
+        gevent.sleep(0.01)
+    
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic1, headers=None, message="Test message")
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic2, headers=None, message="Test message")
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic3, headers=None, message="Test message")
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic4, headers=None, message="Test message")
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic5, headers=None, message="Test message")
+    
+>       assert message_count1 == 1
+E       assert 0 == 1
+
+new_agent1 = <volttron.platform.vip.agent.Agent object at 0x7fd514cabc90>
+new_agent2 = <volttron.platform.vip.agent.Agent object at 0x7fd5143dfc90>
+onmessage1 = <function onmessage1 at 0x7fd5143d5ed8>
+onmessage2 = <function onmessage2 at 0x7fd5143d5de8>
+onmessage3 = <function onmessage3 at 0x7fd5143d5cf8>
+onmessage4 = <function onmessage4 at 0x7fd5143d59b0>
+onmessage5 = <function onmessage5 at 0x7fd5143d5b90>
+prefix_astrix_ends = '*.one.*'
+prefix_astrix_middle = 'testtopic1.*.test'
+prefix_both_delimiters_ends = '*.test.foo.#'
+prefix_hashtag_ends = '#.one.#'
+prefix_hashtag_middle = 'testtopic2.#.test'
+request    = <FixtureRequest for <Function 'test_regex[volttron_instance0]'>>
+stop       = <function stop at 0x7fd51437f8c0>
+test_topic1 = 'test.topic.one.test1'
+test_topic2 = 'testtopic1.foo.bar.three'
+test_topic3 = 'test.one.topic'
+test_topic4 = 'testtopic2.one.two.test'
+test_topic5 = 'testtopic3.test.foo.'
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:299: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1']
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2']
+----------------------------- Captured stderr call -----------------------------
+2018-10-23 10:27:58,582 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentbRkdiY.keys
+2018-10-23 10:27:58,582 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentbRkdiY.keys
+2018-10-23 10:27:58,585 root DEBUG: Creating ZMQ Core agent1
+2018-10-23 10:27:58,586 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:27:58,586 volttron.platform.vip.agent.core DEBUG: identity: agent1
+2018-10-23 10:27:58,586 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:27:58,586 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:27:58,586 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent1
+2018-10-23 10:27:58,593 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent1
+2018-10-23 10:27:58,615 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+2018-10-23 10:27:58,616 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:27:58,648 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:27:59,119 volttron.platform.vip.agent.subsystems.hello INFO: agent1 Requesting hello from peer ()
+2018-10-23 10:27:59,121 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': 'e8bb7acb-d575-431c-9890-c3d5d70c580d', 'id': '10343539212350504475.8784571514297'})
+2018-10-23 10:27:59,122 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentTNZpjI.keys
+2018-10-23 10:27:59,122 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentTNZpjI.keys
+2018-10-23 10:27:59,125 root DEBUG: Creating ZMQ Core agent2
+2018-10-23 10:27:59,126 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:27:59,126 volttron.platform.vip.agent.core DEBUG: identity: agent2
+2018-10-23 10:27:59,126 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:27:59,126 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:27:59,126 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent2
+2018-10-23 10:27:59,132 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent2
+2018-10-23 10:27:59,157 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+2018-10-23 10:27:59,157 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:27:59,165 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:27:59,664 volttron.platform.vip.agent.subsystems.hello INFO: agent2 Requesting hello from peer ()
+2018-10-23 10:27:59,666 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': '3e00aa5c-5672-4e4a-a304-7347f016c424', 'id': '18150415542812160702.8784571514277'})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentbRkdiY.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentbRkdiY.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent1
+zmq_connection.py           77 DEBUG    ZMQ connection agent1
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': 'e8bb7acb-d575-431c-9890-c3d5d70c580d', 'id': '10343539212350504475.8784571514297'})
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentTNZpjI.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentTNZpjI.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent2
+zmq_connection.py           77 DEBUG    ZMQ connection agent2
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': '3e00aa5c-5672-4e4a-a304-7347f016c424', 'id': '18150415542812160702.8784571514277'})
+_____________ test_regex_incorrect_word_count[volttron_instance0] ______________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_regex_incorrect_word_count[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_regex_incorrect_word_count(volttron_instance, request):
+        global message_count1
+        message_count1 = 0
+    
+        ### Test currently fails ###
+    
+        prefix1 = "testtopic.test.test1.*"
+        test_topic1 = "testtopic.test.test1.foo.bar"
+        test_topic3 = "testtopic"
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(prefix1):
+                message_count1 += 1
+    
+        new_agent1 = volttron_instance.build_agent(identity='agent1')
+        new_agent2 = volttron_instance.build_agent(identity='agent2')
+    
+        def stop():
+            new_agent1.core.stop()
+            new_agent2.core.stop()
+    
+        request.addfinalizer(stop)
+    
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=prefix1, callback=onmessage1)
+    
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic1, headers=None, message="Test message")
+>       new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic2, headers=None, message="Test message")
+E       NameError: global name 'test_topic2' is not defined
+
+new_agent1 = <volttron.platform.vip.agent.Agent object at 0x7fd51440b5d0>
+new_agent2 = <volttron.platform.vip.agent.Agent object at 0x7fd5143621d0>
+onmessage1 = <function onmessage1 at 0x7fd51437f410>
+prefix1    = 'testtopic.test.test1.*'
+request    = <FixtureRequest for <Function 'test_regex_incorrect_word_count[volttron_instance0]'>>
+stop       = <function stop at 0x7fd514365320>
+test_topic1 = 'testtopic.test.test1.foo.bar'
+test_topic3 = 'testtopic'
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:333: NameError
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1']
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2']
+----------------------------- Captured stderr call -----------------------------
+2018-10-23 10:27:59,809 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentiRTw7E.keys
+2018-10-23 10:27:59,809 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentiRTw7E.keys
+2018-10-23 10:27:59,814 root DEBUG: Creating ZMQ Core agent1
+2018-10-23 10:27:59,815 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:27:59,815 volttron.platform.vip.agent.core DEBUG: identity: agent1
+2018-10-23 10:27:59,815 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:27:59,815 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:27:59,815 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent1
+2018-10-23 10:27:59,823 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent1
+2018-10-23 10:27:59,873 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+2018-10-23 10:27:59,873 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:27:59,896 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:00,375 volttron.platform.vip.agent.subsystems.hello INFO: agent1 Requesting hello from peer ()
+2018-10-23 10:28:00,377 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '68960fe9-500e-4e73-aeb0-d1b1bd0b2efe', 'id': '12121046015926848409.8784571487117'})
+2018-10-23 10:28:00,377 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentc5HCmH.keys
+2018-10-23 10:28:00,377 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentc5HCmH.keys
+2018-10-23 10:28:00,380 root DEBUG: Creating ZMQ Core agent2
+2018-10-23 10:28:00,381 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:00,381 volttron.platform.vip.agent.core DEBUG: identity: agent2
+2018-10-23 10:28:00,381 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:00,381 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:00,381 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent2
+2018-10-23 10:28:00,388 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent2
+2018-10-23 10:28:00,414 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+2018-10-23 10:28:00,414 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:00,424 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:00,918 volttron.platform.vip.agent.subsystems.hello INFO: agent2 Requesting hello from peer ()
+2018-10-23 10:28:00,920 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': '03ecacdf-6987-4733-8d35-e5f605671ca7', 'id': '4549855159766475803.8784571487073'})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentiRTw7E.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentiRTw7E.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent1
+zmq_connection.py           77 DEBUG    ZMQ connection agent1
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '68960fe9-500e-4e73-aeb0-d1b1bd0b2efe', 'id': '12121046015926848409.8784571487117'})
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentc5HCmH.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentc5HCmH.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent2
+zmq_connection.py           77 DEBUG    ZMQ connection agent2
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': '03ecacdf-6987-4733-8d35-e5f605671ca7', 'id': '4549855159766475803.8784571487073'})
+______________________ test_callback[volttron_instance0] _______________________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_callback[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_callback(volttron_instance, request):
+        global message_count1, message_count2
+        message_count1 = 0
+        message_count2 = 0
+    
+        ### Test failed. Cause currently unknown ###
+    
+        test_topic = "testtopic1/test/foo/bar"
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(test_topic):
+                message_count1 += 1
+    
+        def onmessage2(peer, sender, bus, topic, headers, message):
+            global message_count2
+            if topic.startswith(test_topic):
+                message_count2 += 1
+    
+        new_agent1 = volttron_instance.build_agent(identity='agent1')
+        new_agent2 = volttron_instance.build_agent(identity='agent2')
+    
+    
+        def stop():
+            new_agent1.core.stop()
+            new_agent2.core.stop()
+    
+        request.addfinalizer(stop)
+    
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic, callback=onmessage1)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic, callback=onmessage2)
+        gevent.sleep(0.01)
+    
+    
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic, headers=None, message="Test message")
+        gevent.sleep(0.01)
+    
+    
+        new_agent1.vip.pubsub.unsubscribe(peer='pubsub', prefix=test_topic, callback=onmessage1)
+        gevent.sleep(0.01)
+    
+        new_agent2.vip.pubsub.publish(peer="pubsub", topic=test_topic, headers=None, message="Test message")
+        gevent.sleep(0.01)
+    
+    
+    
+        assert message_count1 == 1
+>       assert message_count2 == 2
+E       assert 1 == 2
+
+new_agent1 = <volttron.platform.vip.agent.Agent object at 0x7fd514362210>
+new_agent2 = <volttron.platform.vip.agent.Agent object at 0x7fd51427c310>
+onmessage1 = <function onmessage1 at 0x7fd51437f2a8>
+onmessage2 = <function onmessage2 at 0x7fd51437f9b0>
+request    = <FixtureRequest for <Function 'test_callback[volttron_instance0]'>>
+stop       = <function stop at 0x7fd514283668>
+test_topic = 'testtopic1/test/foo/bar'
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:389: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1']
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2']
+----------------------------- Captured stderr call -----------------------------
+2018-10-23 10:28:00,959 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentPdunMm.keys
+2018-10-23 10:28:00,959 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentPdunMm.keys
+2018-10-23 10:28:00,964 root DEBUG: Creating ZMQ Core agent1
+2018-10-23 10:28:00,965 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:00,965 volttron.platform.vip.agent.core DEBUG: identity: agent1
+2018-10-23 10:28:00,965 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:00,965 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:00,965 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent1
+2018-10-23 10:28:00,974 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent1
+2018-10-23 10:28:01,010 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+2018-10-23 10:28:01,010 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:01,031 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:01,513 volttron.platform.vip.agent.subsystems.hello INFO: agent1 Requesting hello from peer ()
+2018-10-23 10:28:01,515 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '67ba0cbe-462e-4736-99da-c48245546ee5', 'id': '6642228085928042623.8784571495661'})
+2018-10-23 10:28:01,515 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agent7Oc34B.keys
+2018-10-23 10:28:01,515 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agent7Oc34B.keys
+2018-10-23 10:28:01,518 root DEBUG: Creating ZMQ Core agent2
+2018-10-23 10:28:01,519 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:01,519 volttron.platform.vip.agent.core DEBUG: identity: agent2
+2018-10-23 10:28:01,519 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:01,519 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:01,520 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent2
+2018-10-23 10:28:01,527 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent2
+2018-10-23 10:28:01,563 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+2018-10-23 10:28:01,563 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:01,577 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:02,068 volttron.platform.vip.agent.subsystems.hello INFO: agent2 Requesting hello from peer ()
+2018-10-23 10:28:02,071 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': 'e6b1c185-0c45-4881-8a9e-85c118508b73', 'id': '7502664968164845576.8784571432621'})
+2018-10-23 10:28:02,094 volttron.platform.vip.agent.subsystems.pubsub DEBUG: PUSUB unsubscribe my subscriptions: testtopic1/test/foo/bar defaultdict(<function platform_subscriptions at 0x7fd514365f50>, {'internal': defaultdict(<function subscriptions at 0x7fd514370050>, {'': defaultdict(<type 'set'>, {'testtopic1/test/foo/bar': set([<function onmessage1 at 0x7fd51437f2a8>, <function onmessage2 at 0x7fd51437f9b0>])})})})
+2018-10-23 10:28:02,094 volttron.platform.vip.agent.subsystems.pubsub DEBUG: PUSUB unsubscribe my subscriptions: testtopic1/test/foo/bar defaultdict(<function platform_subscriptions at 0x7fd514365f50>, {'internal': defaultdict(<function subscriptions at 0x7fd514370050>, {'': defaultdict(<type 'set'>, {'testtopic1/test/foo/bar': set([<function onmessage2 at 0x7fd51437f9b0>])})})})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentPdunMm.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentPdunMm.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent1
+zmq_connection.py           77 DEBUG    ZMQ connection agent1
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '67ba0cbe-462e-4736-99da-c48245546ee5', 'id': '6642228085928042623.8784571495661'})
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agent7Oc34B.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agent7Oc34B.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent2
+zmq_connection.py           77 DEBUG    ZMQ connection agent2
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': 'e6b1c185-0c45-4881-8a9e-85c118508b73', 'id': '7502664968164845576.8784571432621'})
+pubsub.py                  496 DEBUG    PUSUB unsubscribe my subscriptions: testtopic1/test/foo/bar defaultdict(<function platform_subscriptions at 0x7fd514365f50>, {'internal': defaultdict(<function subscriptions at 0x7fd514370050>, {'': defaultdict(<type 'set'>, {'testtopic1/test/foo/bar': set([<function onmessage1 at 0x7fd51437f2a8>, <function onmessage2 at 0x7fd51437f9b0>])})})})
+pubsub.py                  496 DEBUG    PUSUB unsubscribe my subscriptions: testtopic1/test/foo/bar defaultdict(<function platform_subscriptions at 0x7fd514365f50>, {'internal': defaultdict(<function subscriptions at 0x7fd514370050>, {'': defaultdict(<type 'set'>, {'testtopic1/test/foo/bar': set([<function onmessage2 at 0x7fd51437f9b0>])})})})
+________________________ test_list[volttron_instance0] _________________________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_list[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_list(volttron_instance, request):
+        global message_count1
+        message_count1 = 0
+    
+        prefix0 = "testtopic1/test/foo/bar"
+        test_topic1 = "testtopic1/test/foo/bar/one"
+        test_topic2 = "testtopic1/test/foo/bar/two"
+        test_topic3 = "testtopic1/test/foo/bar/three"
+    
+        tup_topic = ""
+        topic_result_index = 2
+        member_result_index = 3
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(prefix0):
+                message_count1 += 1
+    
+    
+        new_agent1 = volttron_instance.build_agent(identity='agent1')
+        new_agent2 = volttron_instance.build_agent(identity='agent2')
+    
+        def stop():
+            new_agent1.core.stop()
+            new_agent2.core.stop()
+    
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic1, callback=onmessage1)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic2, callback=onmessage1)
+        new_agent1.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic3, callback=onmessage1)
+    
+        list_results = new_agent1.vip.pubsub.list(peer='pubsub', prefix=prefix0, bus='', subscribed=True, reverse=False,
+                                   all_platforms=False)
+    
+>       for result in list_results:
+E       TypeError: 'AsyncResult' object is not iterable
+
+list_results = <gevent.event.AsyncResult object at 0x7fd5142b1750>
+member_result_index = 3
+new_agent1 = <volttron.platform.vip.agent.Agent object at 0x7fd51427c410>
+new_agent2 = <volttron.platform.vip.agent.Agent object at 0x7fd514247d10>
+onmessage1 = <function onmessage1 at 0x7fd514365500>
+prefix0    = 'testtopic1/test/foo/bar'
+request    = <FixtureRequest for <Function 'test_list[volttron_instance0]'>>
+stop       = <function stop at 0x7fd5143edf50>
+test_topic1 = 'testtopic1/test/foo/bar/one'
+test_topic2 = 'testtopic1/test/foo/bar/two'
+test_topic3 = 'testtopic1/test/foo/bar/three'
+topic_result_index = 2
+tup_topic  = ''
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:426: TypeError
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1']
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+/tmp/tmpS5RsiY: Got hello response ['1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2']
+----------------------------- Captured stderr call -----------------------------
+2018-10-23 10:28:02,143 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentD4BZaR.keys
+2018-10-23 10:28:02,143 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentD4BZaR.keys
+2018-10-23 10:28:02,146 root DEBUG: Creating ZMQ Core agent1
+2018-10-23 10:28:02,146 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:02,146 volttron.platform.vip.agent.core DEBUG: identity: agent1
+2018-10-23 10:28:02,146 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:02,146 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:02,147 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent1
+2018-10-23 10:28:02,154 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent1
+2018-10-23 10:28:02,187 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+2018-10-23 10:28:02,187 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:02,216 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:02,693 volttron.platform.vip.agent.subsystems.hello INFO: agent1 Requesting hello from peer ()
+2018-10-23 10:28:02,695 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '56ccd8c8-ef05-4021-87e7-ca1f022e5ea8', 'id': '474770431142424211.8784571418449'})
+2018-10-23 10:28:02,696 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentzuRIxg.keys
+2018-10-23 10:28:02,696 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentzuRIxg.keys
+2018-10-23 10:28:02,700 root DEBUG: Creating ZMQ Core agent2
+2018-10-23 10:28:02,700 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:02,701 volttron.platform.vip.agent.core DEBUG: identity: agent2
+2018-10-23 10:28:02,701 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:02,701 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:02,701 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent2
+2018-10-23 10:28:02,708 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent2
+2018-10-23 10:28:02,744 volttron.platform.vip.agent.core INFO: Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+2018-10-23 10:28:02,744 volttron.platform.vip.agent.core DEBUG: Running onstart methods.
+2018-10-23 10:28:02,754 volttron.platform.vip.agent.subsystems.configstore DEBUG: Processing callbacks for affected files: {}
+2018-10-23 10:28:03,250 volttron.platform.vip.agent.subsystems.hello INFO: agent2 Requesting hello from peer ()
+2018-10-23 10:28:03,252 volttron.platform.vip.agent.subsystems.hello INFO: Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': 'f88c35ac-61b6-41d3-8f9d-f58527e7f2b0', 'id': '10212927330226545966.8784571442101'})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentD4BZaR.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentD4BZaR.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent1
+zmq_connection.py           77 DEBUG    ZMQ connection agent1
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent1'], 'user': '56ccd8c8-ef05-4021-87e7-ca1f022e5ea8', 'id': '474770431142424211.8784571418449'})
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentzuRIxg.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentzuRIxg.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent2
+zmq_connection.py           77 DEBUG    ZMQ connection agent2
+core.py                    519 INFO     Connected to platform: router: 60b07c2c-ddd2-4d08-83ea-211a2da8f4e7 version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '60b07c2c-ddd2-4d08-83ea-211a2da8f4e7', 'agent2'], 'user': 'f88c35ac-61b6-41d3-8f9d-f58527e7f2b0', 'id': '10212927330226545966.8784571442101'})
+____________________ test_list_reverse[volttron_instance0] _____________________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_list_reverse[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_list_reverse(volttron_instance, request):
+        global message_count1
+        message_count1 = 0
+    
+        ### Test currently fails ###
+    
+        prefix0 = "testtopic1/test/foo/bar"
+        test_topic1 = "testtopic1/test/foo/bar/one"
+        test_topic2 = "testtopic1/test/foo/bar/two"
+        test_topic3 = "testtopic1/test/foo/bar/three"
+    
+        tup_topic = ""
+        topic_result_index = 2
+        member_result_index = 3
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(prefix0):
+                message_count1 += 1
+    
+>       new_agent1 = volttron_instance.build_agent(identity='agent1')
+
+member_result_index = 3
+onmessage1 = <function onmessage1 at 0x7fd5142aa320>
+prefix0    = 'testtopic1/test/foo/bar'
+request    = <FixtureRequest for <Function 'test_list_reverse[volttron_instance0]'>>
+test_topic1 = 'testtopic1/test/foo/bar/one'
+test_topic2 = 'testtopic1/test/foo/bar/two'
+test_topic3 = 'testtopic1/test/foo/bar/three'
+topic_result_index = 2
+tup_topic  = ''
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:452: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../utils/platformwrapper.py:346: in build_agent
+    hello = agent.vip.hello().get(timeout=.5)
+../../env/local/lib/python2.7/site-packages/gevent/event.py:370: in get
+    self._wait_core(timeout, ())
+../../env/local/lib/python2.7/site-packages/gevent/event.py:95: in _wait_core
+    result = self.hub.switch()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Hub at 0x7fd51556e230 epoll default pending=0 ref=25 fileno=10 resolver=<geve...ol at 0x7fd515527150 0/1/10>> threadpool=<ThreadPool at 0x7fd515527150 0/1/10>>
+
+    def switch(self):
+        switch_out = getattr(getcurrent(), 'switch_out', None)
+        if switch_out is not None:
+            switch_out()
+>       return greenlet.switch(self)
+E       Timeout: 0.5 seconds
+
+self       = <Hub at 0x7fd51556e230 epoll default pending=0 ref=25 fileno=10 resolver=<geve...ol at 0x7fd515527150 0/1/10>> threadpool=<ThreadPool at 0x7fd515527150 0/1/10>>
+switch_out = None
+
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:609: Timeout
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+----------------------------- Captured stderr call -----------------------------
+2018-10-23 10:28:03,276 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentCzIBu3.keys
+2018-10-23 10:28:03,276 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentCzIBu3.keys
+2018-10-23 10:28:03,279 root DEBUG: Creating ZMQ Core agent1
+2018-10-23 10:28:03,280 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:03,280 volttron.platform.vip.agent.core DEBUG: identity: agent1
+2018-10-23 10:28:03,280 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:03,280 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:03,280 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent1
+2018-10-23 10:28:03,295 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent1
+2018-10-23 10:28:05,792 volttron.platform.vip.agent.subsystems.hello INFO: agent1 Requesting hello from peer ()
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentCzIBu3.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentCzIBu3.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent1
+zmq_connection.py           77 DEBUG    ZMQ connection agent1
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+_____________________ test_persistence[volttron_instance0] _____________________
+
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+request = <FixtureRequest for <Function 'test_persistence[volttron_instance0]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_persistence(volttron_instance, request):
+        global message_count1
+        message_count1 = 0
+    
+        ### Test Fails due to lack of uuid for anonymous agent ###
+    
+        test_topic = "testtopic1/test/foo/bar"
+    
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith(test_topic):
+                message_count1 += 1
+    
+        listener_uuid = volttron_instance.install_agent(
+            agent_dir=get_examples("ListenerAgent"),
+            vip_identity="listener",
+            start=True)
+        gevent.sleep(2)
+    
+>       new_agent2 = volttron_instance.build_agent(identity='agent2')
+
+listener_uuid = '7b80e831-8dfa-4819-888a-cfe8a2af44e6'
+onmessage1 = <function onmessage1 at 0x7fd51422a758>
+request    = <FixtureRequest for <Function 'test_persistence[volttron_instance0]'>>
+test_topic = 'testtopic1/test/foo/bar'
+volttron_instance = volttron_home: /tmp/tmpS5RsiY
+
+test_rmq_pubsub.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../utils/platformwrapper.py:346: in build_agent
+    hello = agent.vip.hello().get(timeout=.5)
+../../env/local/lib/python2.7/site-packages/gevent/event.py:370: in get
+    self._wait_core(timeout, ())
+../../env/local/lib/python2.7/site-packages/gevent/event.py:95: in _wait_core
+    result = self.hub.switch()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Hub at 0x7fd51556e230 epoll default pending=0 ref=25 fileno=10 resolver=<geve...ol at 0x7fd515527150 0/1/10>> threadpool=<ThreadPool at 0x7fd515527150 0/1/10>>
+
+    def switch(self):
+        switch_out = getattr(getcurrent(), 'switch_out', None)
+        if switch_out is not None:
+            switch_out()
+>       return greenlet.switch(self)
+E       Timeout: 0.5 seconds
+
+self       = <Hub at 0x7fd51556e230 epoll default pending=0 ref=25 fileno=10 resolver=<geve...ol at 0x7fd515527150 0/1/10>> threadpool=<ThreadPool at 0x7fd515527150 0/1/10>>
+switch_out = None
+
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:609: Timeout
+----------------------------- Captured stdout call -----------------------------
+/tmp/tmpS5RsiY: PROCESS IS RUNNING: <Popen at 0x7fd5154ea250 pid=7503 returncode=None>
+/tmp/tmpS5RsiY: running bdist_wheel
+running build
+running build_py
+creating build
+creating build/lib.linux-x86_64-2.7
+creating build/lib.linux-x86_64-2.7/listener
+copying listener/agent.py -> build/lib.linux-x86_64-2.7/listener
+copying listener/settings.py -> build/lib.linux-x86_64-2.7/listener
+copying listener/__init__.py -> build/lib.linux-x86_64-2.7/listener
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/listener
+copying build/lib.linux-x86_64-2.7/listener/agent.py -> build/bdist.linux-x86_64/wheel/listener
+copying build/lib.linux-x86_64-2.7/listener/settings.py -> build/bdist.linux-x86_64/wheel/listener
+copying build/lib.linux-x86_64-2.7/listener/__init__.py -> build/bdist.linux-x86_64/wheel/listener
+running install_egg_info
+running egg_info
+creating listeneragent.egg-info
+writing requirements to listeneragent.egg-info/requires.txt
+writing listeneragent.egg-info/PKG-INFO
+writing top-level names to listeneragent.egg-info/top_level.txt
+writing dependency_links to listeneragent.egg-info/dependency_links.txt
+writing entry points to listeneragent.egg-info/entry_points.txt
+writing manifest file 'listeneragent.egg-info/SOURCES.txt'
+reading manifest file 'listeneragent.egg-info/SOURCES.txt'
+writing manifest file 'listeneragent.egg-info/SOURCES.txt'
+Copying listeneragent.egg-info to build/bdist.linux-x86_64/wheel/listeneragent-3.2-py2.7.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/listeneragent-3.2.dist-info/WHEEL
+creating '/tmp/tmp6zwoFd/pkg/dist/listeneragent-3.2-py2-none-any.whl' and adding '.' to it
+adding 'listener/__init__.py'
+adding 'listener/agent.py'
+adding 'listener/settings.py'
+adding 'listeneragent-3.2.dist-info/DESCRIPTION.rst'
+adding 'listeneragent-3.2.dist-info/entry_points.txt'
+adding 'listeneragent-3.2.dist-info/metadata.json'
+adding 'listeneragent-3.2.dist-info/top_level.txt'
+adding 'listeneragent-3.2.dist-info/WHEEL'
+adding 'listeneragent-3.2.dist-info/METADATA'
+adding 'listeneragent-3.2.dist-info/RECORD'
+{
+    "started": true, 
+    "agent_pid": 7616, 
+    "starting": true, 
+    "agent_uuid": "7b80e831-8dfa-4819-888a-cfe8a2af44e6"
+}
+
+/tmp/tmpS5RsiY: here are the results: {
+    "started": true, 
+    "agent_pid": 7616, 
+    "starting": true, 
+    "agent_uuid": "7b80e831-8dfa-4819-888a-cfe8a2af44e6"
+}
+/tmp/tmpS5RsiY: Building generic agent.
+/tmp/tmpS5RsiY: generating new public secret key pair
+/tmp/tmpS5RsiY: Using vip-address tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: BUILD agent VOLTTRON HOME: /tmp/tmpS5RsiY
+/tmp/tmpS5RsiY: platformwrapper.build_agent.address: tcp://127.0.0.140:5581
+/tmp/tmpS5RsiY: Adding publickey to auth.json
+/tmp/tmpS5RsiY: platformwrapper.build_agent spawning
+----------------------------- Captured stderr call -----------------------------
+INFO:install-agent.py:Installing requirements for agent.
+You are using pip version 18.0, however version 18.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Invalid yaml file detect, attempting to parser using json parser.
+2018-10-23 10:28:13,331 volttron.platform.vip.agent.core ERROR: No response to hello message after 10 seconds.
+2018-10-23 10:28:13,331 volttron.platform.vip.agent.core ERROR: A common reason for this is a conflicting VIP IDENTITY.
+2018-10-23 10:28:13,331 volttron.platform.vip.agent.core ERROR: Another common reason is not having an auth entry onthe target instance.
+2018-10-23 10:28:13,332 volttron.platform.vip.agent.core ERROR: Shutting down agent.
+2018-10-23 10:28:13,332 volttron.platform.vip.agent.core ERROR: Possible conflicting identity is: agent1
+  AGENT             IDENTITY TAG STATUS          HEALTH
+2018-10-23 10:28:20,388 volttron.platform.agent.utils DEBUG: missing file /tmp/tmpS5RsiY/agentyVq1H7.keys
+2018-10-23 10:28:20,388 volttron.platform.agent.utils INFO: creating file /tmp/tmpS5RsiY/agentyVq1H7.keys
+2018-10-23 10:28:20,391 root DEBUG: Creating ZMQ Core agent2
+2018-10-23 10:28:20,391 volttron.platform.vip.agent.core DEBUG: address: tcp://127.0.0.140:5581
+2018-10-23 10:28:20,391 volttron.platform.vip.agent.core DEBUG: identity: agent2
+2018-10-23 10:28:20,391 volttron.platform.vip.agent.core DEBUG: agent_uuid: None
+2018-10-23 10:28:20,392 volttron.platform.vip.agent.core DEBUG: serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+2018-10-23 10:28:20,392 volttron.platform.vip.agent.core DEBUG: AGENT RUNNING on ZMQ Core agent2
+2018-10-23 10:28:20,401 volttron.platform.vip.zmq_connection DEBUG: ZMQ connection agent2
+2018-10-23 10:28:22,906 volttron.platform.vip.agent.subsystems.hello INFO: agent2 Requesting hello from peer ()
+------------------------------ Captured log call -------------------------------
+core.py                    494 ERROR    No response to hello message after 10 seconds.
+core.py                    495 ERROR    A common reason for this is a conflicting VIP IDENTITY.
+core.py                    496 ERROR    Another common reason is not having an auth entry onthe target instance.
+core.py                    498 ERROR    Shutting down agent.
+core.py                    500 ERROR    Possible conflicting identity is: agent1
+utils.py                   650 DEBUG    missing file /tmp/tmpS5RsiY/agentyVq1H7.keys
+utils.py                   651 INFO     creating file /tmp/tmpS5RsiY/agentyVq1H7.keys
+__init__.py                112 DEBUG    Creating ZMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.140:5581
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: T0_kxdcQllIBLYIXAcYhE53iex5KQlzokw_P8ho3G2M
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core agent2
+zmq_connection.py           77 DEBUG    ZMQ connection agent2
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+======== 6 failed, 4 passed, 46 deselected, 10 error in 196.81 seconds =========

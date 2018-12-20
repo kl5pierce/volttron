@@ -127,7 +127,7 @@ def schedule_example(config_path, **kwargs):
     
     
             msg = [
-                   ['campus/building/unit',start,end]
+                   ['devices/fake-campus/fake-building/fake-device',start,end]
                    #Could add more devices
     #                 ["campus/building/device1", #First time slot.
     #                  "2014-1-31 12:27:00",     #Start of time slot.
@@ -150,15 +150,17 @@ def schedule_example(config_path, **kwargs):
                 end = str(datetime.datetime.now() + datetime.timedelta(minutes=1))
     
                 msg = [
-                   ['campus/building/unit3',start,end]
+                   ['fake-campus/fake-building/fake-device',start,end],
                    ]
+                kwargs = {"external_platform": 'volttron2'}
                 result = self.vip.rpc.call(
-                                           'platform.actuator', 
+                                           'platform.actuator',
                                            'request_new_schedule',
                                            agent_id, 
                                            "some task",
                                            'LOW',
-                                           msg).get(timeout=10)
+                                           msg,
+                                           **kwargs).get(timeout=10),
                 print("schedule result", result)
             except Exception as e:
                 print ("Could not contact actuator. Is it running?")
@@ -166,13 +168,15 @@ def schedule_example(config_path, **kwargs):
                 return
             
             try:
-                if result['result'] == 'SUCCESS':
+                if result[0]['result'] == 'SUCCESS':
+                    kwargs = {"external_platform": 'volttron2'}
                     result = self.vip.rpc.call(
-                                           'platform.actuator', 
+                                           'platform.actuator',
                                            'set_point',
-                                           agent_id, 
-                                           'campus/building/unit3/some_point',
-                                           '0.0').get(timeout=10)
+                                           agent_id,
+                                           'fake-campus/fake-building/fake-device/PowerState',
+                                           0,
+                                           **kwargs).get(timeout=10)
                     print("Set result", result)
             except Exception as e:
                 print ("Expected to fail since there is no real device to set")

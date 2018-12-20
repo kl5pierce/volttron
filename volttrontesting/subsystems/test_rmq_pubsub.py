@@ -133,11 +133,11 @@ def test_incorrect_topic(volttron_instance, request):
     # Agent subscribes to both the desired topic and a topic that is not going to ever be published
     new_agent1_sub.vip.pubsub.subscribe(peer='pubsub', prefix=test_topic, callback=onmessage)
     new_agent1_sub.vip.pubsub.subscribe(peer='pubsub', prefix='incorrecttopic', callback=onmessage)
-    gevent.sleep(.5)
+    gevent.sleep(1)
 
 
     new_agent2_pub.vip.pubsub.publish(peer="pubsub", topic=test_topic, headers=None, message="Test message")
-    gevent.sleep(.5)
+    gevent.sleep(1)
 
     # Should get messages from the topic that has messages being published but not from the topic that
     # does not have messages being published

@@ -1,5 +1,5 @@
 #host parameter is mandatory parameter. fully qualified domain name
-host: mymachine.pnl.gov
+host: kirsten-VirtualBox
 
 # mandatory. certificate data used to create root ca certificate. Each volttron
 # instance must have unique common-name for root ca certificate
@@ -10,7 +10,7 @@ certificate-data:
   organization: 'PNNL'
   organization-unit: 'VOLTTRON Team'
   # volttron_instance has to be replaced with actual instance name of the VOLTTRON
-  common-name: 'volttron_instance_root_ca'
+  common-name: 'volttron1_root_ca'
 # certificate data could also point to existing public and private key files
 # of a CA. In that case, use the below certificate-data parameters instead of
 # the above. Note. public and private should be pem encoded and use rsa
@@ -24,7 +24,7 @@ certificate-data:
 #
 # optional parameters for single instance setup
 #
-virtual-host: 'volttron' #defaults to volttron
+virtual-host: 'volttron1' #defaults to volttron
 
 # use the below four port variables if using custom rabbitmq ports
 # defaults to 5672

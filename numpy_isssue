@@ -1,0 +1,96 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.6.4, py-1.7.0, pluggy-0.7.1 -- /home/kirsten/volttron/env/bin/python
+cachedir: .pytest_cache
+rootdir: /home/kirsten/volttron, inifile: pytest.ini
+plugins: timeout-1.3.2
+timeout: 120.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1119 items / 5 errors / 1117 deselected / 3 skipped
+
+==================================== ERRORS ====================================
+ ERROR collecting volttron/platform/agent/base_market_agent/tests/test_market_registration.py 
+ImportError while importing test module '/home/kirsten/volttron/volttron/platform/agent/base_market_agent/tests/test_market_registration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/__init__.py:46: in <module>
+    from volttron.platform.agent.base_market_agent.poly_line_factory import PolyLineFactory
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/poly_line_factory.py:39: in <module>
+    import numpy as np
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+E   ImportError: No module named numpy
+ ERROR collecting volttron/platform/agent/base_market_agent/tests/test_point.py 
+ImportError while importing test module '/home/kirsten/volttron/volttron/platform/agent/base_market_agent/tests/test_point.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/__init__.py:46: in <module>
+    from volttron.platform.agent.base_market_agent.poly_line_factory import PolyLineFactory
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/poly_line_factory.py:39: in <module>
+    import numpy as np
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+E   ImportError: No module named numpy
+ ERROR collecting volttron/platform/agent/base_market_agent/tests/test_poly_line.py 
+ImportError while importing test module '/home/kirsten/volttron/volttron/platform/agent/base_market_agent/tests/test_poly_line.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/__init__.py:46: in <module>
+    from volttron.platform.agent.base_market_agent.poly_line_factory import PolyLineFactory
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/poly_line_factory.py:39: in <module>
+    import numpy as np
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+E   ImportError: No module named numpy
+ ERROR collecting volttron/platform/agent/base_market_agent/tests/test_poly_line_factory.py 
+ImportError while importing test module '/home/kirsten/volttron/volttron/platform/agent/base_market_agent/tests/test_poly_line_factory.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/__init__.py:46: in <module>
+    from volttron.platform.agent.base_market_agent.poly_line_factory import PolyLineFactory
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/poly_line_factory.py:39: in <module>
+    import numpy as np
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+E   ImportError: No module named numpy
+ ERROR collecting volttrontesting/services/market_service/test_market_service.py 
+ImportError while importing test module '/home/kirsten/volttron/volttrontesting/services/market_service/test_market_service.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttrontesting/services/market_service/test_market_service.py:67: in <module>
+    from volttron.platform.agent.base_market_agent import MarketAgent
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/__init__.py:46: in <module>
+    from volttron.platform.agent.base_market_agent.poly_line_factory import PolyLineFactory
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+volttron/platform/agent/base_market_agent/poly_line_factory.py:39: in <module>
+    import numpy as np
+env/local/lib/python2.7/site-packages/gevent/builtins.py:93: in __import__
+    result = _import(*args, **kwargs)
+E   ImportError: No module named numpy
+=========================== short test summary info ============================
+SKIP [1] /home/kirsten/volttron/services/core/MarketServiceAgent/tests/test_offer.py:47: Market service requirements not installed.
+SKIP [1] /home/kirsten/volttron/services/core/MarketServiceAgent/tests/test_market_list.py:70: Market service requirements not installed.
+SKIP [1] /home/kirsten/volttron/services/core/MarketServiceAgent/tests/test_market.py:46: Market service requirements not installed.
+!!!!!!!!!!!!!!!!!!! Interrupted: 5 errors during collection !!!!!!!!!!!!!!!!!!!!
+============= 3 skipped, 1117 deselected, 5 error in 2.93 seconds ==============

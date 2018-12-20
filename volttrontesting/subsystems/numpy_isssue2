@@ -1,0 +1,600 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.6.4, py-1.7.0, pluggy-0.7.1 -- /home/kirsten/volttron/env/bin/python
+cachedir: ../../.pytest_cache
+rootdir: /home/kirsten/volttron, inifile: pytest.ini
+plugins: timeout-1.3.2
+timeout: 120.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 66 items / 64 deselected
+
+test_rmq_pubsub.py::test_granularity[volttron_instance0] building instance
+/tmp/tmpfkOLxV: Creating platform wrapper
+BUILD_WRAPPER: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: In start up platform enable_logging is False 
+/tmp/tmpfkOLxV: Platform will run on message bus type zmq 
+process environment: {'DEBUG': '', 'PATH': '/home/kirsten/volttron:/home/kirsten/volttron/env/bin:/home/kirsten/bin:/home/kirsten/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'VOLTTRON_HOME': '/tmp/tmpfkOLxV', 'PACKAGED_DIR': '/tmp/tmpfkOLxV/packaged', 'DEBUG_MODE': ''}
+popen params: ['volttron', '-l/tmp/tmpfkOLxV/volttron.log']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', 'ae7ec0a8-2278-4bd7-a785-9ebda6342e05']
+/tmp/tmpfkOLxV: Has control? ['control', 'master.web', 'config.store', 'keydiscovery', 'pubsub', 'platform.auth', 'ae7ec0a8-2278-4bd7-a785-9ebda6342e05']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', 'agent1']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', 'agent2']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', 'agent3']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', 'agent4']
+PASSED
+test_rmq_pubsub.py::test_granularity[volttron_instance1] Shutting down instance: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '2a7b14f9-25ae-4bc6-873e-8eeb84b16406']
+PEER LIST: ['control', 'master.web', '2a7b14f9-25ae-4bc6-873e-8eeb84b16406', 'config.store', 'keydiscovery', 'pubsub', 'platform.auth', 'ae7ec0a8-2278-4bd7-a785-9ebda6342e05']
+/tmp/tmpfkOLxV: Building generic agent.
+/tmp/tmpfkOLxV: generating new public secret key pair
+/tmp/tmpfkOLxV: Using vip-address tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: BUILD agent VOLTTRON HOME: /tmp/tmpfkOLxV
+/tmp/tmpfkOLxV: platformwrapper.build_agent.address: tcp://127.0.0.54:5265
+/tmp/tmpfkOLxV: Adding publickey to auth.json
+/tmp/tmpfkOLxV: platformwrapper.build_agent spawning
+/tmp/tmpfkOLxV: Got hello response ['1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '47ac661f-7736-48a2-80f5-90ab42cca66c']
+PEER LIST: ['control', 'master.web', '47ac661f-7736-48a2-80f5-90ab42cca66c', 'config.store', 'keydiscovery', 'pubsub', 'platform.auth', 'ae7ec0a8-2278-4bd7-a785-9ebda6342e05']
+/tmp/tmpfkOLxV: Removing /tmp/tmpfkOLxV
+building instance
+/tmp/tmp0Vir1U: Creating platform wrapper
+BUILD_WRAPPER: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Setting up volttron test environemnt /tmp/tmp0Vir1U
+Create new exchange: volttron, {'durable': True, 'type': 'topic', 'arguments': {'alternate-exchange': 'undeliverable'}}
+Create new exchange: undeliverable, {'durable': True, 'type': 'fanout'}
+Created CA cert
+/tmp/tmp0Vir1U: In start up platform enable_logging is False 
+/tmp/tmp0Vir1U: Platform will run on message bus type rmq 
+process environment: {'DEBUG': '', 'PATH': '/home/kirsten/volttron:/home/kirsten/volttron/env/bin:/home/kirsten/bin:/home/kirsten/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'VOLTTRON_HOME': '/tmp/tmp0Vir1U', 'PACKAGED_DIR': '/tmp/tmp0Vir1U/packaged', 'DEBUG_MODE': ''}
+popen params: ['volttron', '-l/tmp/tmp0Vir1U/volttron.log']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab']
+/tmp/tmp0Vir1U: Has control? ['proxy_router', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab', 'platform.auth', 'config.store']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', 'agent1']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', 'agent2']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', 'agent3']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', 'agent4']
+FAILEDShutting down instance: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', '8c4b4d3d-58b7-4077-b2fd-4e68b683c171']
+PEER LIST: ['control', 'master.web', '8c4b4d3d-58b7-4077-b2fd-4e68b683c171', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab', 'proxy_router', 'agent4', 'agent3', 'agent2', 'agent1', 'config.store', 'platform.auth']
+/tmp/tmp0Vir1U: Building generic agent.
+/tmp/tmp0Vir1U: generating new public secret key pair
+/tmp/tmp0Vir1U: Using vip-address tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: BUILD agent VOLTTRON HOME: /tmp/tmp0Vir1U
+/tmp/tmp0Vir1U: platformwrapper.build_agent.address: tcp://127.0.0.176:5385
+/tmp/tmp0Vir1U: Adding publickey to auth.json
+/tmp/tmp0Vir1U: platformwrapper.build_agent spawning
+/tmp/tmp0Vir1U: Got hello response ['1.0', 'router', '29beda05-7e2a-41fa-a8f2-2086f602e986']
+PEER LIST: ['control', 'master.web', '8c4b4d3d-58b7-4077-b2fd-4e68b683c171', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab', 'proxy_router', 'agent4', 'agent3', 'agent2', 'agent1', 'config.store', '29beda05-7e2a-41fa-a8f2-2086f602e986', 'platform.auth']
+
+test_rmq_pubsub.py::test_granularity[volttron_instance1] ERROR
+
+==================================== ERRORS ====================================
+__________ ERROR at teardown of test_granularity[volttron_instance1] ___________
+
+    def cleanup():
+        print('Shutting down instance: {}'.format(wrapper.volttron_home))
+        wrapper.remove_all_agents()
+>       wrapper.shutdown_platform()
+
+wrapper    = volttron_home: /tmp/tmp0Vir1U
+
+../fixtures/volttron_platform_fixtures.py:196: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../utils/platformwrapper.py:1030: in shutdown_platform
+    ssl_auth=self.ssl_auth)
+../fixtures/rmq_test_setup.py:76: in cleanup_rmq_volttron_setup
+    users_to_remove = rmq_mgmt.get_users()
+../../volttron/utils/rmq_mgmt.py:248: in get_users
+    response = self._http_get_request(url, ssl_auth)
+../../volttron/utils/rmq_mgmt.py:163: in _http_get_request
+    response = self._call_grequest('get', url, ssl_auth)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <volttron.utils.rmq_mgmt.RabbitMQMgmt object at 0x7fa824fb0c90>
+method_name = 'get', url_suffix = '/api/users/', ssl_auth = True
+kwargs = {'auth': ('volttron_test-admin', 'default_passwd'), 'cert': ('/tmp/tmp0Vir1U/certificates/certs/volttron_test-admin.cr...rs': {'Content-Type': 'application/json'}, 'verify': '/tmp/tmp0Vir1U/certificates/certs/volttron_test-trusted-cas.crt'}
+url = 'https://localhost:15671/api/users/'
+auth_args = {'auth': ('volttron_test-admin', 'default_passwd'), 'cert': ('/tmp/tmp0Vir1U/certificates/certs/volttron_test-admin.cr...ficates/private/volttron_test-admin.pem'), 'verify': '/tmp/tmp0Vir1U/certificates/certs/volttron_test-trusted-cas.crt'}
+fn = <functools.partial object at 0x7fa8286ccaa0>
+request = <grequests.AsyncRequest object at 0x7fa824e88ed0>, response = [None]
+e = AttributeError("'NoneType' object has no attribute 'raise_for_status'",)
+
+    def _call_grequest(self, method_name, url_suffix, ssl_auth=True, **kwargs):
+        """
+            Make grequest calls to RabbitMQ management
+            :param method_name: method type - put/get/delete
+            :param url_suffix: http URL suffix
+            :param ssl_auth: If True, it's SSL based connection
+            :param kwargs: Additional arguments for http request
+            :return:
+            """
+        url = self._get_url_prefix(ssl_auth) + url_suffix
+        kwargs["headers"] = {"Content-Type": "application/json"}
+        auth_args = self._get_authentication_args(ssl_auth)
+        kwargs.update(auth_args)
+    
+        try:
+            fn = getattr(grequests, method_name)
+            request = fn(url, **kwargs)
+            response = grequests.map([request])
+    
+            if response and isinstance(response, list):
+                response[0].raise_for_status()
+        except (ConnectionError, NewConnectionError) as e:
+            _log.debug("Error connecting to {} with "
+                       "args {}: {}".format(url, kwargs, e))
+            raise e
+        except requests.exceptions.HTTPError as e:
+            _log.debug("Exception when trying to make HTTP request to {} with "
+                       "args {} : {}".format(url, kwargs, e))
+            raise e
+        except AttributeError as e:
+            _log.debug("Exception when trying to make HTTP request to {} with "
+                       "args {} : {}".format(url, kwargs, e))
+>           raise e
+E           AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+
+auth_args  = {'auth': ('volttron_test-admin', 'default_passwd'), 'cert': ('/tmp/tmp0Vir1U/certificates/certs/volttron_test-admin.cr...ficates/private/volttron_test-admin.pem'), 'verify': '/tmp/tmp0Vir1U/certificates/certs/volttron_test-trusted-cas.crt'}
+e          = AttributeError("'NoneType' object has no attribute 'raise_for_status'",)
+fn         = <functools.partial object at 0x7fa8286ccaa0>
+kwargs     = {'auth': ('volttron_test-admin', 'default_passwd'), 'cert': ('/tmp/tmp0Vir1U/certificates/certs/volttron_test-admin.cr...rs': {'Content-Type': 'application/json'}, 'verify': '/tmp/tmp0Vir1U/certificates/certs/volttron_test-trusted-cas.crt'}
+method_name = 'get'
+request    = <grequests.AsyncRequest object at 0x7fa824e88ed0>
+response   = [None]
+self       = <volttron.utils.rmq_mgmt.RabbitMQMgmt object at 0x7fa824fb0c90>
+ssl_auth   = True
+url        = 'https://localhost:15671/api/users/'
+url_suffix = '/api/users/'
+
+../../volttron/utils/rmq_mgmt.py:116: AttributeError
+------------------------------ Captured log setup ------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpfkOLxV/agentckPYw0.keys
+utils.py                   651 INFO     creating file /tmp/tmpfkOLxV/agentckPYw0.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.54:5265
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: cPKh88Xmci-rNHlNIYUPO_SIsYBL0ZgnGbURz3pY_As
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+zmq_connection.py           77 DEBUG    ZMQ connection 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+core.py                    519 INFO     Connected to platform: router: 177dcbb8-aafd-46ad-84a8-63c5fd5693e9 version: 1.0 identity: 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     2a7b14f9-25ae-4bc6-873e-8eeb84b16406 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '2a7b14f9-25ae-4bc6-873e-8eeb84b16406'], 'user': '67167de4-623a-492e-87ab-09c0a327427a', 'id': '14300526693871338631.8772509700157'})
+utils.py                   650 DEBUG    missing file /tmp/tmpfkOLxV/agentcL_x6J.keys
+utils.py                   651 INFO     creating file /tmp/tmpfkOLxV/agentcL_x6J.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.54:5265
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: cPKh88Xmci-rNHlNIYUPO_SIsYBL0ZgnGbURz3pY_As
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core 47ac661f-7736-48a2-80f5-90ab42cca66c
+zmq_connection.py           77 DEBUG    ZMQ connection 47ac661f-7736-48a2-80f5-90ab42cca66c
+core.py                    519 INFO     Connected to platform: router: 177dcbb8-aafd-46ad-84a8-63c5fd5693e9 version: 1.0 identity: 47ac661f-7736-48a2-80f5-90ab42cca66c
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     47ac661f-7736-48a2-80f5-90ab42cca66c Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '47ac661f-7736-48a2-80f5-90ab42cca66c'], 'user': 'f31eb177-048d-4e73-b8ff-c17fd1c77253', 'id': '7455216336865496078.8772509700317'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/keystore
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/keystore
+rmq_mgmt.py                175 DEBUG    Creating new VIRTUAL HOST: volttron_test
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test-admin
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/known_hosts
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/known_hosts
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agent5vejcA.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agent5vejcA.keys
+__init__.py                101 DEBUG    Creating RMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core 58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/auth.json
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/auth.json
+auth.py                    754 INFO     Created backup of /tmp/tmp0Vir1U/auth.json at /tmp/tmp0Vir1U/auth.json.11d341b3-d709-4f64-b30f-1f7a26fd38bc.bak
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab with volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+hello.py                    86 INFO     58d20317-a2a3-4834-b4fd-3dc7e1e657ab Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab'], 'platform': 'volttron_test', 'user': 'volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab', 'peer': 'router', 'id': '16335529848734667307.8772509710061'})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agent0SWB8r.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agent0SWB8r.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent1
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent1
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent1 with volttron_test.agent1
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent1'], 'platform': 'volttron_test', 'user': 'volttron_test.agent1', 'peer': 'router', 'id': '6402098137333648849.8772509495989'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentkpSsqH.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentkpSsqH.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent2
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent2
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent2 with volttron_test.agent2
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent2'], 'platform': 'volttron_test', 'user': 'volttron_test.agent2', 'peer': 'router', 'id': '9290037056437232028.8772509468353'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentpXRGBL.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentpXRGBL.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent3
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent3
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent3
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent3
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent3 with volttron_test.agent3
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent3
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent3 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent3'], 'platform': 'volttron_test', 'user': 'volttron_test.agent3', 'peer': 'router', 'id': '12633694109483168406.8772509474125'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentmuoGxl.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentmuoGxl.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent4
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent4
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent4
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent4
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent4 with volttron_test.agent4
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent4
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent4 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent4'], 'platform': 'volttron_test', 'user': 'volttron_test.agent4', 'peer': 'router', 'id': '12214753303466084607.8772509480565'})
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.#
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.test.#
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.test.foo.#
+---------------------------- Captured log teardown -----------------------------
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: agent1
+rmq_connection.py          325 DEBUG    ********************************************************************
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: agent2
+rmq_connection.py          325 DEBUG    ********************************************************************
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: agent3
+rmq_connection.py          325 DEBUG    ********************************************************************
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: agent4
+rmq_connection.py          325 DEBUG    ********************************************************************
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentA9InFp.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentA9InFp.keys
+__init__.py                101 DEBUG    Creating RMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core 8c4b4d3d-58b7-4077-b2fd-4e68b683c171
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.8c4b4d3d-58b7-4077-b2fd-4e68b683c171
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.8c4b4d3d-58b7-4077-b2fd-4e68b683c171 with volttron_test.8c4b4d3d-58b7-4077-b2fd-4e68b683c171
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: 8c4b4d3d-58b7-4077-b2fd-4e68b683c171
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     8c4b4d3d-58b7-4077-b2fd-4e68b683c171 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', '8c4b4d3d-58b7-4077-b2fd-4e68b683c171'], 'platform': 'volttron_test', 'user': 'volttron_test.8c4b4d3d-58b7-4077-b2fd-4e68b683c171', 'peer': 'router', 'id': '332180566614453467.8772509480469'})
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: 8c4b4d3d-58b7-4077-b2fd-4e68b683c171
+rmq_connection.py          325 DEBUG    ********************************************************************
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentm3SuZI.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentm3SuZI.keys
+__init__.py                101 DEBUG    Creating RMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core 29beda05-7e2a-41fa-a8f2-2086f602e986
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.29beda05-7e2a-41fa-a8f2-2086f602e986
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.29beda05-7e2a-41fa-a8f2-2086f602e986 with volttron_test.29beda05-7e2a-41fa-a8f2-2086f602e986
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: 29beda05-7e2a-41fa-a8f2-2086f602e986
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     29beda05-7e2a-41fa-a8f2-2086f602e986 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', '29beda05-7e2a-41fa-a8f2-2086f602e986'], 'platform': 'volttron_test', 'user': 'volttron_test.29beda05-7e2a-41fa-a8f2-2086f602e986', 'peer': 'router', 'id': '823707615965052999.8772509403337'})
+rmq_connection.py          323 DEBUG    ********************************************************************
+rmq_connection.py          324 DEBUG    Closing connection to RMQ: 29beda05-7e2a-41fa-a8f2-2086f602e986
+rmq_connection.py          325 DEBUG    ********************************************************************
+rmq_mgmt.py                115 DEBUG    Exception when trying to make HTTP request to https://localhost:15671/api/users/ with args {'headers': {'Content-Type': 'application/json'}, 'cert': ('/tmp/tmp0Vir1U/certificates/certs/volttron_test-admin.crt', '/tmp/tmp0Vir1U/certificates/private/volttron_test-admin.pem'), 'auth': ('volttron_test-admin', 'default_passwd'), 'verify': '/tmp/tmp0Vir1U/certificates/certs/volttron_test-trusted-cas.crt'} : 'NoneType' object has no attribute 'raise_for_status'
+=================================== FAILURES ===================================
+_____________________ test_granularity[volttron_instance1] _____________________
+
+volttron_instance = volttron_home: /tmp/tmp0Vir1U
+request = <FixtureRequest for <Function 'test_granularity[volttron_instance1]'>>
+
+    @pytest.mark.rmq_pubsub
+    def test_granularity(volttron_instance, request):
+        global message_count1, message_count2, message_count3
+        message_count1 = 0
+        message_count2 = 0
+        message_count3 = 0
+    
+        g1_topic = "testtopic1"
+        g2_topic = "testtopic1/test"
+        g3_topic = "testtopic1/test/foo"
+    
+        # High level granularity callback, will get the most messages
+        def onmessage1(peer, sender, bus, topic, headers, message):
+            global message_count1
+            if topic.startswith("testtopic1"):
+                message_count1 += 1
+    
+        # Medium level granularity callback, will get medium amount of messages
+        def onmessage2(peer, sender, bus, topic, headers, message):
+            global message_count2
+            if topic.startswith("testtopic1/test"):
+                message_count2 += 1
+    
+        # Low level granularity callback method, will get least amount of messages
+        def onmessage3(peer, sender, bus, topic, headers, message):
+            global message_count3
+            if topic.startswith("testtopic1/test/foo"):
+                message_count3 += 1
+    
+        new_agent1_sub = volttron_instance.build_agent(identity='agent1')
+        new_agent2_sub = volttron_instance.build_agent(identity='agent2')
+        new_agent3_sub = volttron_instance.build_agent(identity='agent3')
+        new_agent4_pub = volttron_instance.build_agent(identity='agent4')
+    
+        def stop():
+            new_agent1_sub.core.stop()
+            new_agent2_sub.core.stop()
+            new_agent3_sub.core.stop()
+            new_agent4_pub.core.stop()
+        request.addfinalizer(stop)
+    
+        new_agent1_sub.vip.pubsub.subscribe(peer='pubsub', prefix='testtopic1', callback=onmessage1)
+        new_agent2_sub.vip.pubsub.subscribe(peer='pubsub', prefix='testtopic1/test', callback=onmessage2)
+        new_agent3_sub.vip.pubsub.subscribe(peer='pubsub', prefix='testtopic1/test/foo', callback=onmessage3)
+>       gevent.sleep(2)
+
+g1_topic   = 'testtopic1'
+g2_topic   = 'testtopic1/test'
+g3_topic   = 'testtopic1/test/foo'
+new_agent1_sub = <volttron.platform.vip.agent.Agent object at 0x7fa826b67710>
+new_agent2_sub = <volttron.platform.vip.agent.Agent object at 0x7fa824ff28d0>
+new_agent3_sub = <volttron.platform.vip.agent.Agent object at 0x7fa824f862d0>
+new_agent4_pub = <volttron.platform.vip.agent.Agent object at 0x7fa824f9d210>
+onmessage1 = <function onmessage1 at 0x7fa826d0d488>
+onmessage2 = <function onmessage2 at 0x7fa825037500>
+onmessage3 = <function onmessage3 at 0x7fa825037050>
+request    = <FixtureRequest for <Function 'test_granularity[volttron_instance1]'>>
+stop       = <function stop at 0x7fa824f9bc80>
+volttron_instance = volttron_home: /tmp/tmp0Vir1U
+
+test_rmq_pubsub.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:194: in sleep
+    hub.wait(loop.timer(seconds, ref=ref))
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:630: in wait
+    result = waiter.get()
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:878: in get
+    return self.hub.switch()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Hub at 0x7fa826d26910 epoll default pending=0 ref=17 fileno=4 resolver=<geven...ol at 0x7fa826bc6c10 0/1/10>> threadpool=<ThreadPool at 0x7fa826bc6c10 0/1/10>>
+
+    def switch(self):
+        switch_out = getattr(getcurrent(), 'switch_out', None)
+        if switch_out is not None:
+            switch_out()
+>       return greenlet.switch(self)
+E       Failed: Timeout >120.0s
+
+self       = <Hub at 0x7fa826d26910 epoll default pending=0 ref=17 fileno=4 resolver=<geven...ol at 0x7fa826bc6c10 0/1/10>> threadpool=<ThreadPool at 0x7fa826bc6c10 0/1/10>>
+switch_out = None
+
+../../env/local/lib/python2.7/site-packages/gevent/hub.py:609: Failed
+------------------------------ Captured log setup ------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmpfkOLxV/agentckPYw0.keys
+utils.py                   651 INFO     creating file /tmp/tmpfkOLxV/agentckPYw0.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.54:5265
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: cPKh88Xmci-rNHlNIYUPO_SIsYBL0ZgnGbURz3pY_As
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+zmq_connection.py           77 DEBUG    ZMQ connection 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+core.py                    519 INFO     Connected to platform: router: 177dcbb8-aafd-46ad-84a8-63c5fd5693e9 version: 1.0 identity: 2a7b14f9-25ae-4bc6-873e-8eeb84b16406
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     2a7b14f9-25ae-4bc6-873e-8eeb84b16406 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '2a7b14f9-25ae-4bc6-873e-8eeb84b16406'], 'user': '67167de4-623a-492e-87ab-09c0a327427a', 'id': '14300526693871338631.8772509700157'})
+utils.py                   650 DEBUG    missing file /tmp/tmpfkOLxV/agentcL_x6J.keys
+utils.py                   651 INFO     creating file /tmp/tmpfkOLxV/agentcL_x6J.keys
+__init__.py                112 DEBUG    Creating ZMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.54:5265
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: cPKh88Xmci-rNHlNIYUPO_SIsYBL0ZgnGbURz3pY_As
+core.py                    551 DEBUG    AGENT RUNNING on ZMQ Core 47ac661f-7736-48a2-80f5-90ab42cca66c
+zmq_connection.py           77 DEBUG    ZMQ connection 47ac661f-7736-48a2-80f5-90ab42cca66c
+core.py                    519 INFO     Connected to platform: router: 177dcbb8-aafd-46ad-84a8-63c5fd5693e9 version: 1.0 identity: 47ac661f-7736-48a2-80f5-90ab42cca66c
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     47ac661f-7736-48a2-80f5-90ab42cca66c Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'peer': '', 'subsystem': 'hello', 'args': ['welcome', '1.0', '177dcbb8-aafd-46ad-84a8-63c5fd5693e9', '47ac661f-7736-48a2-80f5-90ab42cca66c'], 'user': 'f31eb177-048d-4e73-b8ff-c17fd1c77253', 'id': '7455216336865496078.8772509700317'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/keystore
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/keystore
+rmq_mgmt.py                175 DEBUG    Creating new VIRTUAL HOST: volttron_test
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test-admin
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/known_hosts
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/known_hosts
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agent5vejcA.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agent5vejcA.keys
+__init__.py                101 DEBUG    Creating RMQ Core None
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: None
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core 58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/auth.json
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/auth.json
+auth.py                    754 INFO     Created backup of /tmp/tmp0Vir1U/auth.json at /tmp/tmp0Vir1U/auth.json.11d341b3-d709-4f64-b30f-1f7a26fd38bc.bak
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab with volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab
+hello.py                    86 INFO     58d20317-a2a3-4834-b4fd-3dc7e1e657ab Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', '58d20317-a2a3-4834-b4fd-3dc7e1e657ab'], 'platform': 'volttron_test', 'user': 'volttron_test.58d20317-a2a3-4834-b4fd-3dc7e1e657ab', 'peer': 'router', 'id': '16335529848734667307.8772509710061'})
+------------------------------ Captured log call -------------------------------
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agent0SWB8r.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agent0SWB8r.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent1
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent1
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent1
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent1
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent1 with volttron_test.agent1
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent1
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent1 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent1'], 'platform': 'volttron_test', 'user': 'volttron_test.agent1', 'peer': 'router', 'id': '6402098137333648849.8772509495989'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentkpSsqH.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentkpSsqH.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent2
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent2
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent2
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent2
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent2 with volttron_test.agent2
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent2
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent2 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent2'], 'platform': 'volttron_test', 'user': 'volttron_test.agent2', 'peer': 'router', 'id': '9290037056437232028.8772509468353'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentpXRGBL.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentpXRGBL.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent3
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent3
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent3
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent3
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent3 with volttron_test.agent3
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent3
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent3 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent3'], 'platform': 'volttron_test', 'user': 'volttron_test.agent3', 'peer': 'router', 'id': '12633694109483168406.8772509474125'})
+utils.py                   650 DEBUG    missing file /tmp/tmp0Vir1U/agentmuoGxl.keys
+utils.py                   651 INFO     creating file /tmp/tmp0Vir1U/agentmuoGxl.keys
+__init__.py                101 DEBUG    Creating RMQ Core agent4
+core.py                    459 DEBUG    address: tcp://127.0.0.176:5385
+core.py                    460 DEBUG    identity: agent4
+core.py                    461 DEBUG    agent_uuid: None
+core.py                    462 DEBUG    serverkey: dU6Qh0DZUVbXoE0wdhpAyZaHG9AzXJifqNd1IMnQGRw
+core.py                    832 DEBUG    AGENT RUNNING on RMQ Core agent4
+rmq_mgmt.py                345 DEBUG    Create READ, WRITE and CONFIGURE permissions for the user: volttron_test.agent4
+rmq_connection.py          190 DEBUG    Binding volttron to volttron_test.agent4 with volttron_test.agent4
+core.py                    519 INFO     Connected to platform: router: router version: 1.0 identity: agent4
+core.py                    520 DEBUG    Running onstart methods.
+configstore.py             270 DEBUG    Processing callbacks for affected files: {}
+hello.py                    86 INFO     agent4 Requesting hello from peer ()
+hello.py                   104 INFO     Handling hello message Message(**{'subsystem': 'hello', 'args': ['welcome', '1.0', 'router', 'agent4'], 'platform': 'volttron_test', 'user': 'volttron_test.agent4', 'peer': 'router', 'id': '12214753303466084607.8772509480565'})
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.#
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.test.#
+rmq_pubsub.py              234 DEBUG    RMQ PUBSUB subscribing to __pubsub__.volttron_test.testtopic1.test.foo.#
+========= 1 failed, 1 passed, 64 deselected, 1 error in 131.16 seconds =========

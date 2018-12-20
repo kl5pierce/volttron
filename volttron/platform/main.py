@@ -474,7 +474,7 @@ class Router(BaseRouter):
         if proto.bytes != b'VIP1':
             return
 
-        # Handle 'EXT_RPC' subsystem messages
+        # Handle 'EXT_RPC' subsystem mstart_rabbit(rmq_home)essages
         name = subsystem.bytes
         if name == 'external_rpc':
             # Reframe the frames
